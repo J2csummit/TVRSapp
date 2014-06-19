@@ -1,0 +1,232 @@
+body{
+
+	background-color: #f2f2f2;
+}
+
+.down{
+	margin-top:45px;
+}
+
+.down2{
+	margin-top:25px;
+}
+
+.side{
+
+	margin-right:35px;
+}
+
+.side2{
+
+	margin-right:15px;
+}
+
+.concolor{
+
+	background-color:#2A74D4;
+	/*background-color: #002040;*/ 
+	margin-bottom:30px;
+	color:#FFFFFF;
+}
+
+.left{
+
+float:left;
+
+
+}
+
+.right{
+
+float:right;
+
+}
+
+.top{
+
+	margin-top:20px;
+
+}
+
+.top2{
+
+	margin-top:5px;
+}
+
+.color{
+
+	background-color:#2A74D4; 
+	color:#FFFFFF;
+	font-weight: bold;
+	min-height:30px;
+	padding-top:4px;
+	margin-bottom:20px;
+	clear:both;
+
+}
+
+input[type="radio"] { 
+
+  margin-right: 5px;
+
+}
+
+input[type="checkbox"] { 
+
+  margin-right: 10px;
+  
+}
+
+.move {
+
+	padding-left:80px;
+}
+
+.move2 {
+
+	padding-right:80px;
+}
+
+.down {
+
+	margin-top:20px;
+	margin-bottom:50px;
+}
+
+.center{
+
+	margin:0 auto;
+	text-align:center;
+}
+
+.padsides{
+
+	padding-left:20px;
+	padding-right:20px;
+	font-size:25px;
+}
+
+.white {
+
+background-color:#FFFFFF;
+margin-bottom:20px;
+
+}
+
+.black {
+
+background-color:#2A74D4;
+height:5px;
+margin-top:5px;
+
+}
+
+.grey {
+
+	background-color:#F2F2F2;
+	height:5px;
+	margin-top:5px;
+
+}
+
+.scroll {
+
+	/*width:100px;*/
+	height:150px;
+	overflow: scroll;
+	/*margin-top:10px;*/
+	margin-bottom:10px;
+	border:2px solid;
+	border-color:#F2F2F2;
+	/*margin-left:6px;*/
+	/*margin-right:10px;*/
+
+}
+
+.total {
+
+	margin-top:15px;
+}
+
+.text-align {
+
+	text-align:right;
+}
+
+.dgrey{
+
+	color:#4C4C4C;
+
+}
+
+
+.override-button{
+
+	margin-bottom:3px;
+	margin-right:5px;
+	padding:4px;
+	margin-top:2px;
+}
+
+.right{
+
+	text-align:right;
+	margin-top:10px;
+}
+
+.center{
+
+	text-align: center;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.center2{
+
+	text-align: center;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.paddbutton{
+
+	margin-left:5px;
+}
+
+.more{
+
+	padding-top:5px;
+}
+
+.midgrey {
+
+	background-color:#D6D6D6;
+	height:4px;
+	margin-top:35px;
+}
+
+.total2{
+
+	margin-top:5px;
+	margin-right:20px;
+}
+
+.overpadd{
+
+	padding-left:0px;
+}
+
+.margbut{
+
+	margin-left:5px;
+}
+
+.overpadd{
+
+	margin-left:5px;
+}
+
+.btn2{
+
+	padding:3px;
+}

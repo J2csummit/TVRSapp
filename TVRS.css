@@ -1,0 +1,23 @@
+@charset "UTF-8";
+/* CSS Document */
+h1{
+	color:#FFF;
+	text-align:center;
+	min-width: 100%;
+	background-color:#06F;
+}
+.menu{
+	width:400px;
+	height:165px;
+	margin:100px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	padding-top:135px;
+	color:white;
+	text-decoration: none;
+	background-image:url("images/button.png");
+}
+.menu:active{
+	background-image:url("images/buttonpressed.png");
+}
