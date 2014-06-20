@@ -8,16 +8,14 @@ h1{
 }
 .menu{
 	width:400px;
-	height:165px;
-	margin:100px;
-	margin-left:auto;
-	margin-right:auto;
-	text-align:center;
-	padding-top:135px;
-	color:white;
-	text-decoration: none;
-	background-image:url("images/button.png");
+	height:300px;
+	float:left;
+	clear:both;
+	border: solid black 1px;
 }
-.menu:active{
-	background-image:url("images/buttonpressed.png");
+#service{
+	background-image:url("images/buttonservice.png");
+}
+#alcohol{
+	background-image:url("images/buttonalcohol.png");
 }
