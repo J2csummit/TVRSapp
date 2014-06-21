@@ -1,21 +1,28 @@
 @charset "UTF-8";
 /* CSS Document */
 h1{
-	color:#FFF;
+	color:#FFFFFF;
 	text-align:center;
-	min-width: 100%;
-	background-color:#06F;
+	min-width:100%;
+	background-color:#0066FF;
+	font-family: "Helvetica Neue";
 }
 .menu{
-	width:400px;
+	width:100%;
 	height:300px;
+	margin-top:10px;
+	margin-bottom:10px;
 	float:left;
 	clear:both;
-	border: solid black 1px;
+	border:outset #FFFFFF 5px;
+	border-radius: 50px;
+	background-color: #99CCFF;
+	font-size: 24px;
+	font-family: "Helvetica Neue";
+	color:white;
 }
-#service{
-	background-image:url("images/buttonservice.png");
-}
-#alcohol{
-	background-image:url("images/buttonalcohol.png");
+.menu:active{
+	border:inset #FFFFFF 5px;
+	background-color: #6699CC;
+	color:#D0D0D0;
 }
