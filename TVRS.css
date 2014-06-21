@@ -4,12 +4,17 @@ body{
 	background-color:#F2F2F2;
 	margin:0;
 }
+#container{
+	width:10%;
+	margin-left: auto;
+	margin-right: auto;
+}
 h1{
 	color:#FFFFFF;
 	text-align:center;
 	min-width:100%;
 	background-color:#2A74D4;
-	font-size: 36px;
+	font-size: 20px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 500;
 	line-height: 1.1;
@@ -19,7 +24,7 @@ h1{
 }
 .menu{
 	width:100%;
-	height:100px;
+	height:50px;
 	margin-top:10px;
 	margin-bottom:10px;
 	float:left;
@@ -27,7 +32,7 @@ h1{
 	border:outset #F2F2F2 5px;
 	border-radius: 50px;
 	background-color: #99CCFF;
-	font-size: 24px;
+	font-size: 15px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 200;
 	color:white;
