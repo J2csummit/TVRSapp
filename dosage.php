@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>TVRS Dosage</title>
+		<title>TVRS Service Survey</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -14,13 +14,121 @@
 
 
 
-		
+		<?php
+
+			//credentials
+			include("tvrs_config.php");
+
+			//connect to db
+			$dbc = @mysqli_connect (
+				$db_host,
+				$db_user,
+				$db_password,
+				$db_name)
+			OR die (
+				'Could not connect to MySQL: ' . mysqli_connect_error());
+
+			//if submit is pressed
+			if(isset($_POST['submit'])) {
+
+					//Create empty error array
+					$error = array();
+
+					//Check for names
+					if(empty($_POST['providerName'])) {
+						$error['providerName'] = 'Please enter your name';
+					}
+
+					if(empty($_POST['clientName'])) {
+						$error['clientName'] = 'Please select the client\'s name';
+					}
+
+					//Check for services
+					if(empty($_POST['service'])) {
+						$error['service'] = 'Please select a service';
+					}
+
+					//Check for "other"
+					if(($_POST['service']) == '15' && empty($_POST['other'])){
+					$error['other'] = 'If you have selected "Other" under "Service Provided", please describe the service provided in the text box below';
+					}
+
+					if(empty($_POST['receiverGroup'])) {
+						$error['receiverGroup'] = 'Please select who is receiving the service';
+					}
+
+					//Check for time
+					if(empty($_POST['hours'])) {
+						$error['hours'] = 'Please enter a value for number of hours';
+					}
+					if(empty($_POST['minutes'])) {
+						$error['minutes'] = 'Please enter a value for number of minutes';
+					}
+
+					//Check for method
+					if(empty($_POST['method'])) {
+						$error['method'] = 'Please select a method';
+					}
+
+					//If there are no errors
+					if(sizeof($error) == 0) {
+
+						$i = 0;
+						$temp = $_POST['receiverGroup'];
+						foreach($temp as $each) {
+							if($i==0){
+								$receiver = $each;
+							}else{
+								$receiver = $receiver + " , " + $each;
+							}
+							$i++;
+						}
+
+						$elapsedTime = $_POST['hours'] . $_POST['minutes'];
+
+						//Insert a record into the database
+						$query = "INSERT INTO dosage (
+							entry_id,
+							providerName,
+							clientName,
+							services,
+							receiver,
+							elapsedTime,
+							method,
+							activity_date
+						) VALUES (
+							null,
+							'{$_POST['providerName']}',
+							'{$_POST['clientName']}',
+							'{$_POST['service']}',
+							$receiver,
+							$elapsedTime,
+							'{$_POST['method']}',
+							NOW()
+						)";
+						mysqli_query($dbc, $query);
+
+						//Display a confirmation
+						echo "<div class=\"alert alert-success\">Thank You. Your entry has been submitted.</div>";
+
+					} else {
+
+							foreach($error as $value) {
+									echo "<div class=\"alert alert-danger\">";
+									echo $value;
+									echo "</div>";
+							}
+					}
+				}
+
+		?>
+
 		    <div class="concolor">
 		    <div class="container">
 		    	<!-- <img src=""> -->
 		    	<div class="row">
 		    		<div class="col-md-12 col-xs-12">
-		    	<h1>TVRS Dosage</h1>
+		    	<h1>TVRS Service Survey</h1>
 		    </div>
 		    		</div>
 		    	</div>
@@ -38,7 +146,15 @@
 				<div class="col-md-6 background col-xs-12"> 
 				<label class="col-md-12 col-xs-12 color h4">Your Name:</label><br />
 				<select name = "providerName">
-					<option value="Abdul Muhammad">Abdul Muhammad</option><option value="Ayana Abdul-Raheem">Ayana Abdul-Raheem</option><option value="Darren Green">Darren Green</option><option value="Earl Lester">Earl Lester</option><option value="Errick Wiggins">Errick Wiggins</option><option value="Hawwah Momolu">Hawwah Momolu</option><option value="Isles">Isles</option><option value="Jason Rodgers">Jason Rodgers</option><option value="Lee Hood">Lee Hood</option><option value="Wayne Council">Wayne Council</option>				</select><br /><br />
+					<?php 
+						$query = "SELECT provider_name FROM providers ORDER BY provider_name";
+						$result = mysqli_query($dbc, $query) or die('Query failed: ' . mysqli_error($dbc));
+						while($row = mysqli_fetch_assoc($result))
+						{
+      						echo "<option value=\"{$row['provider_name']}\">{$row['provider_name']}</option>";
+						}
+					?>
+				</select><br /><br />
 			</div>
 		
 
@@ -46,7 +162,15 @@
 			<div class="col-md-6 col-xs-12">
 				<label class="col-md-12 col-xs-12 color h4">Client Name:</label><br />
 				<select name = "clientName">
-					<option value="Bobby R">Bobby R</option><option value="Bruce W">Bruce W</option><option value="David B">David B</option><option value="Jimmy C">Jimmy C</option><option value="Mark H">Mark H</option>				</select><br /><br />
+					<?php 
+						$query = "SELECT client_name FROM clients ORDER BY client_name";
+						$result = mysqli_query($dbc, $query) or die('Query failed: ' . mysqli_error($dbc));
+						while($row = mysqli_fetch_assoc($result))
+						{
+      						echo "<option value=\"{$row['client_name']}\">{$row['client_name']}</option>";
+						}
+					?>
+				</select><br /><br />
 			</div>
 		
 	
@@ -62,9 +186,26 @@
 			<div class="row">
 
 			<div class="col-md-6 col-xs-12">
-				<input name="service" type="radio" value="1">Risk Reduction and/or Resiliency Strength Assessment and Counseling<br /><input name="service" type="radio" value="2">Psychosocial Counseling<br /><input name="service" type="radio" value="3">Substance Abuse Counseling<br /><input name="service" type="radio" value="4">Mentoring (peer or other)<br /><input name="service" type="radio" value="5">Case Management Services<br /><input name="service" type="radio" value="6">Medical Services<br /><input name="service" type="radio" value="7">Career Counseling / Job Training<br /></div><div class="col-md-6 col-xs-12"><input name="service" type="radio" value="8">Life Skills<br /><input name="service" type="radio" value="9">Parenting Skills<br /><input name="service" type="radio" value="10">Crisis Counseling<br /><input name="service" type="radio" value="11">Legal Assistance<br /><input name="service" type="radio" value="12">Mental Health Counseling<br /><input name="service" type="radio" value="13">English Language Skills Assistance<br /><input name="service" type="radio" value="14">Family Counseling<br /><input name="service" type="radio" value="15">Other Services<br />				<br />
-				<label class="col-md-12 col-xs-12 color h4">If you answered other, please describe the service provided</label><br />
-				<input name = "other" type ="text" value="" /><br />
+				<?php 
+					$query = "SELECT service_code, service_text FROM service ORDER BY service_code";
+					$result = mysqli_query($dbc, $query);
+					$rowcount = mysqli_num_rows($result);
+					$i = 0;
+					while($row = mysqli_fetch_assoc($result))
+					{
+      					echo "<input name=\"service\" type=\"radio\" value=\"{$row['service_code']}\">{$row['service_text']}<br />";
+      					$i++;
+
+      					if ($i == floor($rowcount / 2)){
+      						echo "</div><div class=\"col-md-6 col-xs-12\">";
+      					}
+					}
+				?>
+				<br />
+				If you selected "Other Services", please describe the service provided
+                <br />
+				<input name = "other" type ="text" value="" />
+                <br />
 
 			</div>
 			
@@ -80,7 +221,15 @@
 
 							<div class="col-md-6 col-xs-12">
 				<label class="col-md-12 color h4">Who received the service? (One or more)</label><br />
-					<input name="receiverGroup[]" type="checkbox" value="Client">Client<br /><input name="receiverGroup[]" type="checkbox" value="Partner/Spouse">Partner/Spouse<br /><input name="receiverGroup[]" type="checkbox" value="Child">Child<br /><input name="receiverGroup[]" type="checkbox" value="Sibling">Sibling<br /><input name="receiverGroup[]" type="checkbox" value="Parent">Parent<br /><input name="receiverGroup[]" type="checkbox" value="Extended Family">Extended Family<br />					<br />
+					<?php 
+						$query = "SELECT receiver FROM receiver ORDER BY receiver_id";
+						$result = mysqli_query($dbc, $query);
+						while($row = mysqli_fetch_assoc($result))
+						{
+	      					echo "<input name=\"receiverGroup[]\" type=\"checkbox\" value=\"{$row['receiver']}\">{$row['receiver']}<br />";
+						}
+					?>
+					<br />
 				</div>
 
 
@@ -188,7 +337,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 col-xs-12 right center">
-				<button name= "submit" type="submit" class="btn btn-primary padsides down" value="submit">Send</button>
+				<button type="submit" class="btn btn-primary padsides down" value="submit">Send</button>
 			</div>
 		</div>
 			
