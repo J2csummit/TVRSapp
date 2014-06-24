@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>TVRS Service Survey</title>
+		<title>Dosage</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -128,7 +128,7 @@
 		    	<!-- <img src=""> -->
 		    	<div class="row">
 		    		<div class="col-md-12 col-xs-12">
-		    	<h1>TVRS Service Survey</h1>
+		    	<h1>Dosage</h1>
 		    </div>
 		    		</div>
 		    	</div>
