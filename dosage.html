@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>TVRS Dosage</title>
+		<title>Dosage</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -20,12 +20,15 @@
 		    	<!-- <img src=""> -->
 		    	<div class="row">
 		    		<div class="col-md-12 col-xs-12">
-		    	<h1>TVRS Dosage</h1>
+		    	<h1>Dosage</h1>
 		    </div>
 		    		</div>
 		    	</div>
 		    </div>
 
+
+
+		<form method="post" action="dosage.php"> 
 
 
 <div class="container">
@@ -59,9 +62,10 @@
 			<div class="row">
 
 			<div class="col-md-6 col-xs-12">
-				<input name="service" type="radio" value="1">Risk Reduction and/or Resiliency Strength Assessment and Counseling<br /><input name="service" type="radio" value="2">Psychosocial Counseling<br /><input name="service" type="radio" value="3">Substance Abuse Counseling<br /><input name="service" type="radio" value="4">Mentoring (peer or other)<br /><input name="service" type="radio" value="5">Case Management Services<br /><input name="service" type="radio" value="6">Medical Services<br /><input name="service" type="radio" value="7">Career Counseling / Job Training<br /></div><div class="col-md-6 col-xs-12"><input name="service" type="radio" value="8">Life Skills<br /><input name="service" type="radio" value="9">Parenting Skills<br /><input name="service" type="radio" value="10">Crisis Counseling<br /><input name="service" type="radio" value="11">Legal Assistance<br /><input name="service" type="radio" value="12">Mental Health Counseling<br /><input name="service" type="radio" value="13">English Language Skills Assistance<br /><input name="service" type="radio" value="14">Family Counseling<br /><input name="service" type="radio" value="15">Other Services<br />				<br />
-				<label class="col-md-12 col-xs-12 color h4">If you answered other, please describe the service provided</label><br />
-				<input name = "other" type ="text" value="" /><br />
+				<input name="service" type="radio" value="1">Risk Reduction and/or Resiliency Strength Assessment and Counseling<br /><input name="service" type="radio" value="2">Psychosocial Counseling<br /><input name="service" type="radio" value="3">Substance Abuse Counseling<br /><input name="service" type="radio" value="4">Mentoring (peer or other)<br /><input name="service" type="radio" value="5">Case Management Services<br /><input name="service" type="radio" value="6">Medical Services<br /><input name="service" type="radio" value="7">Career Counseling / Job Training<br /></div><div class="col-md-6 col-xs-12"><input name="service" type="radio" value="8">Life Skills<br /><input name="service" type="radio" value="9">Parenting Skills<br /><input name="service" type="radio" value="10">Crisis Counseling<br /><input name="service" type="radio" value="11">Legal Assistance<br /><input name="service" type="radio" value="12">Mental Health Counseling<br /><input name="service" type="radio" value="13">English Language Skills Assistance<br /><input name="service" type="radio" value="14">Family Counseling<br /><input name="service" type="radio" value="15">Other Services<br />
+				<div id="selectedother">If you selected "Other Services", please describe the service provided</div>
+				<input name = "other" type ="text" value="" />
+                <br />
 
 			</div>
 			
@@ -194,6 +198,8 @@
 		
 </div>
 </div>
+
+</form>
 
 
 
