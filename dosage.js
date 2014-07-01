@@ -1,10 +1,9 @@
 function checkConnection() {
     if(doesConnectionExist()==true){
-        alert("You currently have connection!");
-        return true;
+        alert("You currently have connection! Unsubmitted entries will now be uploaded.");
+        upload();
     } else if(doesConnectionExist()==false){
         alert("You currently do not have connection!");
-        return false;
     }
 }
 
@@ -15,14 +14,13 @@ function submission() {
             url:"dosage.php",
             dataType:"json",
             data: $('#dosageform').serialize(),
-            success:completion(),
-            failure:badConnection()
+            success:completion()
         });
         return true;
     } else if(doesConnectionExist()==false){
-        alert("Connection has failed!");
+        alert("Connection has failed. Will store this entry for later submission.");
+        storeLocal();
         return false;
-        // insert code to store form as local data
     }
 }
 
@@ -48,17 +46,12 @@ function doesConnectionExist() {
 
 function completion()
 {             
-    // Insert some HTML into our DIV
     alert("Entry Successful!");
     
 }
 
-function badConnection()
-{             
-    // Insert some HTML into our DIV
-    alert("Something is wrong.");
-    alert("Connection too weak. Will store this entry for later submission.");
-    try {
+function storeLocal(){
+	try {
         if (!window.openDatabase) {
             alert('not supported');
         } else {
@@ -81,6 +74,9 @@ function badConnection()
         return;
     }
  
-alert("Database is: "+db);
-    
+	alert("Database is: "+db);
+}
+
+function upload(){
+	//Code to upload locally stored data
 }
