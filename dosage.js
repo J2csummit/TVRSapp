@@ -1,9 +1,10 @@
 function checkConnection() {
     if(doesConnectionExist()==true){
         alert("You currently have connection!");
-        //insert code to submit local data previously stored
+        return true;
     } else if(doesConnectionExist()==false){
         alert("You currently do not have connection!");
+        return false;
     }
 }
 
@@ -17,8 +18,10 @@ function submission() {
             success:completion(),
             failure:badConnection()
         });
+        return true;
     } else if(doesConnectionExist()==false){
         alert("Connection has failed!");
+        return false;
         // insert code to store form as local data
     }
 }
