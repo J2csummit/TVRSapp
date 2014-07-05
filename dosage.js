@@ -19,7 +19,7 @@ function submission() {
         return true;
     } else if(doesConnectionExist()==false){
         alert("Connection has failed. Will store this entry for later submission.");
-        storeLocal();
+        storage();
         return false;
     }
 }
@@ -50,7 +50,7 @@ function completion()
     
 }
 
-function storeLocal(){
+function makeDatabase(){
 	try {
         if (!window.openDatabase) {
             alert('not supported');
@@ -78,5 +78,61 @@ function storeLocal(){
 }
 
 function upload(){
-	//Code to upload locally stored data
+	var urName= localStorage.getItem("providerName");
+	document.getElementById("providerName").value = urName;
+
+    var cltName= localStorage.getItem("clientName");
+    document.getElementById("clientName").value = cltName;
+
+    var serv= localStorage.getItem("service");
+    document.getElementById("service").value = serv;
+
+    var othr= localStorage.getItem("other");
+    document.getElementById("other").value = othr;
+
+    var receive= localStorage.getItem("receiverGroup[]");
+    document.getElementById("receiverGroup[]").value = receive;
+
+    var how= localStorage.getItem("method");
+    document.getElementById("method").value = how;
+
+    var hrs= localStorage.getItem("hours");
+    document.getElementById("hours").value = hrs;
+
+    var min= localStorage.getItem("minutes");
+    document.getElementById("minutes").value = min;
+
+    $.ajax({
+            type:"POST",
+            url:"dosage.php",
+            dataType:"json",
+            data: $('#dosageform').serialize(),
+            success:completion()
+    });
+}
+
+function storage(){
+	var urName= document.getElementById("providerName");
+    localStorage.setItem("providerName", urName.value);
+
+    var cltName= document.getElementById("clientName");
+    localStorage.setItem("clientName", cltName.value);
+
+    var serv= document.getElementById("service");
+    localStorage.setItem("service", serv.value);
+
+    var othr= document.getElementById("other");
+    localStorage.setItem("other", othr.value);
+
+    var receive= document.getElementById("receiverGroup[]");
+    localStorage.setItem("receiverGroup[]", receive.value);
+
+    var how= document.getElementById("method");
+    localStorage.setItem("method", how.value);
+
+    var hrs= document.getElementById("hours");
+    localStorage.setItem("hours", hrs.value);
+
+    var min= document.getElementById("minutes");
+    localStorage.setItem("minutes", min.value);
 }
