@@ -1,7 +1,8 @@
 function checkConnection() {
+    makeDatabase();
     if(doesConnectionExist()==true){
         alert("You currently have connection! Unsubmitted entries will now be uploaded.");
-        upload();
+        //upload();
     } else if(doesConnectionExist()==false){
         alert("You currently do not have connection!");
     }
@@ -14,9 +15,9 @@ function submission() {
             url:"dosage.php",
             dataType:"json",
             data: $('#dosageform').serialize(),
-            success:completion()
+            success:storage()
         });
-        return true;
+        return false;
     } else if(doesConnectionExist()==false){
         alert("Connection has failed. Will store this entry for later submission.");
         storage();
@@ -50,36 +51,37 @@ function completion()
     
 }
 
+
+//HTML Local Database 2.0
+
+var TVRSdata = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
+
 function makeDatabase(){
-	try {
-        if (!window.openDatabase) {
-            alert('not supported');
-        } else {
-            var shortName = 'mydatabase';
-            var version = '1.0';
-            var displayName = 'My Important Database';
-            var maxSize = 65536; // in bytes
-            var db = openDatabase(shortName, version, displayName, maxSize);
- 
-            // You should have a database instance in db.
-        }
-    } catch(e) {
-        // Error handling code goes here.
-        if (e == 2) {
-            // Version number mismatch.
-            alert("Invalid database version.");
-        } else {
-            alert("Unknown error "+e+".");
-        }
-        return;
-    }
- 
-	alert("Database is: "+db);
+    TVRSdata.transaction(function (db) {
+        db.executeSql('CREATE TABLE IF NOT EXISTS foo (yourName, cilentName, servprov, othre, whoreceiv, howprov, hour, minute)');
+    });
+    alert("1 - Database is: "+TVRSdata);
+}
+
+function storage(){
+    var urName= document.getElementById("providerName");
+    var cltName= document.getElementById("clientName");
+    var serv= document.getElementById("service");
+    var othr= document.getElementById("other");
+    var receive= document.getElementById("receiverGroup[]");
+    var how= document.getElementById("method");
+    var hrs= document.getElementById("hours");
+    var min= document.getElementById("minutes");
+
+    TVRSdata.transaction(function (db) {
+        db.executeSql('INSERT INTO foo (yourName, cilentName, servprov, othre, whoreceiv, howprov, hour, minute) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [urName, cltName, serv, othr,receive, how, hrs, min]);
+    });
+    alert("2 - Database is: "+TVRSdata);
 }
 
 function upload(){
-	var urName= localStorage.getItem("providerName");
-	document.getElementById("providerName").value = urName;
+    var urName= localStorage.getItem("providerName");
+    document.getElementById("providerName").value = urName;
 
     var cltName= localStorage.getItem("clientName");
     document.getElementById("clientName").value = cltName;
@@ -109,30 +111,4 @@ function upload(){
             data: $('#dosageform').serialize(),
             success:completion()
     });
-}
-
-function storage(){
-	var urName= document.getElementById("providerName");
-    localStorage.setItem("providerName", urName.value);
-
-    var cltName= document.getElementById("clientName");
-    localStorage.setItem("clientName", cltName.value);
-
-    var serv= document.getElementById("service");
-    localStorage.setItem("service", serv.value);
-
-    var othr= document.getElementById("other");
-    localStorage.setItem("other", othr.value);
-
-    var receive= document.getElementById("receiverGroup[]");
-    localStorage.setItem("receiverGroup[]", receive.value);
-
-    var how= document.getElementById("method");
-    localStorage.setItem("method", how.value);
-
-    var hrs= document.getElementById("hours");
-    localStorage.setItem("hours", hrs.value);
-
-    var min= document.getElementById("minutes");
-    localStorage.setItem("minutes", min.value);
 }
