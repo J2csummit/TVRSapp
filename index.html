@@ -1,16 +1,242 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link href="TVRS.css" type="text/css" rel="stylesheet">
-<title>Trenton Violence Reduction Strategy</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="TVRS.css" type="text/css" rel="stylesheet">
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+	<link rel="stylesheet" href="css/themes/my-custom-theme.css" />
+  	<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+	<script src="dosage.js"></script>
+
+	<title>Trenton Violence Reduction Strategy</title>
 </head>
 
-<body>
-<h1>Trenton Violence Reduction Strategy</h1>
-<div id="container">
-<a href="dosage.html"><button class="menu" id="service">Dosage</button></a>
-<a href="alcohol.html"><button class="menu" id="alcohol">Alcohol Study</button></a>
+<body class="ui-body-c" onload="checkConnection()">
+
+
+<!-- Menu -->
+
+
+<div data-role="page" id="indexpg">
+
+	<div data-role="header">
+		<h1>Trenton Violence Reduction Strategy</h1>
+	</div>
+
+	<div role="main" class="ui-content">
+		<a href="#dosagepg" data-transition="flip"><button class="ui-btn ui-corner-all">Dosage</button></a>
+		<a href="#alcoholpg"><button class="ui-btn ui-corner-all">Alcohol Study</button></a>
+	</div>
+
 </div>
+
+
+<!-- Dosage Form -->
+
+
+<div data-role="page" id="dosagepg">
+
+	<div data-role="header">
+		<a href="#indexpg" data-transition="flip" data-direction="reverse" class="ui-btn-left">< Menu</a>
+		<h1>Dosage</h1>
+	</div>
+
+	<div role="main" class="ui-content">
+		
+		<form id="dosageform" onSubmit="return submission()" data-ajax="false">
+			<div class="ui-field-contain">
+			    <h3 class="ui-bar ui-bar-a ui-corner-all">Your Name:</h3>
+			    <select name = "providerName" id = "providerNames" data-native-menu="false">
+			        <option value="Abdul Muhammad">Abdul Muhammad</option>
+					<option value="Ayana Abdul-Raheem">Ayana Abdul-Raheem</option>
+					<option value="Darren Green">Darren Green</option>
+					<option value="Earl Lester">Earl Lester</option>
+					<option value="Errick Wiggins">Errick Wiggins</option>
+					<option value="Hawwah Momolu">Hawwah Momolu</option>
+					<option value="Isles">Isles</option>
+					<option value="Jason Rodgers">Jason Rodgers</option>
+					<option value="Lee Hood">Lee Hood</option>
+					<option value="Wayne Council">Wayne Council</option>
+			    </select>
+			</div>
+
+			<div class="ui-field-contain">
+			    <h3 class="ui-bar ui-bar-a ui-corner-all">Client Name:</h3>
+			    <select name = "clientName" id = "clientNames" data-native-menu="false">
+					<option value="Bobby R">Bobby R</option>
+					<option value="Bruce W">Bruce W</option>
+					<option value="David B">David B</option>
+					<option value="Jimmy C">Jimmy C</option>
+					<option value="Mark H">Mark H</option>
+				</select>
+			</div>
+
+			<fieldset data-role="controlgroup">
+		        <h3 class="ui-bar ui-bar-a ui-corner-all">Service Provided:</h3>
+			        <input name="service" id="service1" type="radio" value="1">
+			        <label for="service1">Risk Reduction and/or Resiliency Strength Assessment and Counseling</label>
+			        <input name="service" id="service2" type="radio" value="2">
+			        <label for="service2">Psychosocial Counseling</label>
+			        <input name="service" id="service3" type="radio" value="3">
+			        <label for="service3">Substance Abuse Counseling</label>
+					<input name="service" id="service4" type="radio" value="4">
+					<label for="service4">Mentoring (peer or other)</label>
+					<input name="service" id="service5" type="radio" value="5">
+					<label for="service5">Case Management Services</label>
+					<input name="service" id="service6" type="radio" value="6">
+					<label for="service6">Medical Services</label>
+					<input name="service" id="service7" type="radio" value="7">
+					<label for="service7">Career Counseling / Job Training</label>
+					<input name="service" id="service8" type="radio" value="8">
+			        <label for="service8">Life Skills</label>
+					<input name="service" id="service9" type="radio" value="9">
+					<label for="service9">Parenting Skills</label>
+					<input name="service" id="service10" type="radio" value="10">
+					<label for="service10">Crisis Counseling</label>
+					<input name="service" id="service11" type="radio" value="11">
+					<label for="service11">Legal Assistance</label>
+					<input name="service" id="service12" type="radio" value="12">
+					<label for="service12">Mental Health Counseling</label>
+					<input name="service" id="service13" type="radio" value="13">
+					<label for="service13">English Language Skills Assistance</label>
+					<input name="service" id="service14" type="radio" value="14">
+					<label for="service14">Family Counseling</label>
+					<input name="service" id="service15" type="radio" value="15">
+					<label for="service15">Other Services</label>
+					<input name = "other" id="others" type ="text" value="" placeholder="If you selected 'Other Services', please describe the service provided"/>
+		    </fieldset>
+
+		    <fieldset data-role="controlgroup">
+		        <h3 class="ui-bar ui-bar-a ui-corner-all">Who received the service? (One or more)</h3>
+		        <input name="receiverGroup[]" id="receiver1" type="checkbox" value="Client">
+		        <label for="receiver1">Client</label>
+				<input name="receiverGroup[]" id="receiver2" type="checkbox" value="Partner/Spouse">
+				<label for="receiver2">Partner/Spouse</label>
+				<input name="receiverGroup[]" id="receiver3" type="checkbox" value="Child">
+				<label for="receiver3">Child</label>
+				<input name="receiverGroup[]" id="receiver4" type="checkbox" value="Sibling">
+				<label for="receiver4">Sibling</label>
+				<input name="receiverGroup[]" id="receiver5" type="checkbox" value="Parent">
+				<label for="receiver5">Parent</label>
+				<input name="receiverGroup[]" id="receiver6" type="checkbox" value="Extended Family">
+				<label for="receiver6">Extended Family</label>
+		    </fieldset>
+
+		    <fieldset data-role="controlgroup">
+		    	<h3 class="ui-bar ui-bar-a ui-corner-all">How was this service provided?</h3>
+		    	<input name="method" id="method1" type="radio" value="Phone">
+		        <label for="method1">Phone</label>
+		        <input name="method" id="method2" type="radio" value="In-Person">
+		        <label for="method2">In-Person</label>
+		        <input name="method" id="method3" type="radio" value="Group Format">
+		        <label for="method3">Group Format</label>
+				<input name="method" id="method4" type="radio" value="Electronically">
+				<label for="method4">Electronically</label>
+		    </fieldset>
+
+		    <div class="ui-grid-b">
+		        <h3 class="ui-bar ui-bar-a ui-corner-all">Total Time Providing Services (Hours, Minutes)</h3>
+			        <div class="ui-block-a">
+				        <select name = "hours" id="hourss">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+				</select>
+					</div>
+
+					<div class="ui-block-b">
+						<select name = "minutes" id="minutess">
+							<option value=":00">:00</option>
+							<option value=":01">:01</option>
+							<option value=":02">:02</option>
+							<option value=":03">:03</option>
+							<option value=":04">:04</option>
+							<option value=":05">:05</option>
+							<option value=":06">:06</option>
+							<option value=":07">:07</option>
+							<option value=":08">:08</option>
+							<option value=":09">:09</option>
+							<option value=":10">:10</option>
+							<option value=":11">:11</option>
+							<option value=":12">:12</option>
+							<option value=":13">:13</option>
+							<option value=":14">:14</option>
+							<option value=":15">:15</option>
+							<option value=":16">:16</option>
+							<option value=":17">:17</option>
+							<option value=":18">:18</option>
+							<option value=":19">:19</option>
+							<option value=":20">:20</option>
+							<option value=":21">:21</option>
+							<option value=":22">:22</option>
+							<option value=":23">:23</option>
+							<option value=":24">:24</option>
+							<option value=":25">:25</option>
+							<option value=":26">:26</option>
+							<option value=":27">:27</option>
+							<option value=":28">:28</option>
+							<option value=":29">:29</option>
+							<option value=":30">:30</option>
+							<option value=":31">:31</option>
+							<option value=":32">:32</option>
+							<option value=":33">:33</option>
+							<option value=":34">:34</option>
+							<option value=":35">:35</option>
+							<option value=":36">:36</option>
+							<option value=":37">:37</option>
+							<option value=":38">:38</option>
+							<option value=":39">:39</option>
+							<option value=":40">:40</option>
+							<option value=":41">:41</option>
+							<option value=":42">:42</option>
+							<option value=":43">:43</option>
+							<option value=":44">:44</option>
+							<option value=":45">:45</option>
+							<option value=":46">:46</option>
+							<option value=":47">:47</option>
+							<option value=":48">:48</option>
+							<option value=":49">:49</option>
+							<option value=":50">:50</option>
+							<option value=":51">:51</option>
+							<option value=":52">:52</option>
+							<option value=":53">:53</option>
+							<option value=":54">:54</option>
+							<option value=":55">:55</option>
+							<option value=":56">:56</option>
+							<option value=":57">:57</option>
+							<option value=":58">:58</option>
+							<option value=":59">:59</option>
+						</select>
+			    	</div>
+		    </div>
+		    <br />
+		    <br />
+		    <button name= "submit" type="submit">Send</button>
+
+		</form>
+	</div>
+</div>
+
+<!-- Alochol Form -->
+
+<div data-role="dialog" data-transition="pop" id="alcoholpg">
+	<div data-role="header">
+		<h1>Error</h1>
+	</div>
+	<p>There is currently no Alcohol Form</p>
+
+</div>
+
 </body>
 </html>
