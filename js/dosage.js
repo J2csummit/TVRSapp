@@ -13,6 +13,7 @@ var htmlstring;
 
 // This function will run upon the page being fully loaded
 function checkConnection() {
+    document.getElementById("containOther").style.display = "none";
     makeDatabase();
     filled = true;
     other = false;
@@ -141,6 +142,25 @@ function getHowValue(groupName) {
     }
 }
 
+function checkOther(){
+    var radios = document.getElementsByName("service");
+    window.isOther = null;
+    for (var i=0; i<radios.length; i++) {
+        var aRadio = radios[i];
+        if (aRadio.checked) {
+            var foundCheckedRadio = aRadio;
+            isOther = foundCheckedRadio.value;
+            if (isOther == '15') {
+                document.getElementById("containOther").style.display = "block";
+            }
+            else {
+                document.getElementById("containOther").style.display = "none";
+            }
+        }
+        else isOther = 'noRadioChecked';
+    }
+}
+
 // -------------------------------------- HTML Local Database
 
 
@@ -202,12 +222,6 @@ function insertDB(db){
 
     alert("Entry Saved to Device.");
 
-//    var len = results.rows.length, i;
-//        for (i = 0; i < len; i++) {
-//            var data = JSON.stringify(results.rows.item(i))
-//            alert(data);
-//        }
-
 }
 
 function showDosage(){
@@ -221,7 +235,7 @@ function showDosageDB(db){
         var htmlstring = '';
         var len = results.rows.length;
         for (i = 0; i < len; i++) {
-            htmlstring += '<li data-role="list-divider" role="heading" class="ui-li-divider ui-bar-a ui-first-child">New Post</li>' + '<li><a href="#" class="ui-btn">' + 'Your Name: ' + results.rows.item(i).urName + '</a></li>' + '<li><a href="#" class="ui-btn">' + 'Client Name: ' + results.rows.item(i).cltName + '</a></li>' + '<li><a href="#" class="ui-btn">' + 'Service Provided: ' + results.rows.item(i).serv + '</a></li>' + '<li><a href="#" class="ui-btn">' + 'Other Service Description: ' + results.rows.item(i).othr + '</a></li>' + '<li><a href="#" class="ui-btn">' + 'Who Received the Service: ' + results.rows.item(i).who + '</a></li>' + '<li><a href="#" class="ui-btn">' + 'How Service was Provided: ' + results.rows.item(i).how + '</a></li>' + '<li><a href="#" class="ui-btn">' + 'Time: ' + results.rows.item(i).hrs + results.rows.item(i).min + '</a></li>';
+            htmlstring += '<li data-role="list-divider" role="heading" class="ui-li-divider ui-bar-c ui-first-child">New Post</li>' + '<li class="ui-li-divider ui-bar-a">' + 'Your Name: <div class="valueStored">' + results.rows.item(i).urName + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'Client Name: <div class="valueStored">' + results.rows.item(i).cltName + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'Service Provided: <div class="valueStored">' + results.rows.item(i).serv + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + '"Other Service" Description: <div class="valueStored">' + results.rows.item(i).othr + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'Who Received the Service: <div class="valueStored">' + results.rows.item(i).who + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'How Service was Provided: <div class="valueStored">' + results.rows.item(i).how + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'Time: <div class="valueStored">' + results.rows.item(i).hrs + results.rows.item(i).min + '</div></li>';
         }
         document.getElementById("showPost").innerHTML = htmlstring;
     });

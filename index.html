@@ -2,10 +2,10 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="extra.css" type="text/css" rel="stylesheet">
+	<link href="css/extra.css" type="text/css" rel="stylesheet">
 
 	<link rel="stylesheet" href="css/jquery.mobile-1.4.3.min.css" />
-	<link rel="stylesheet" href="css/themes/TVRS.css" />
+	<link rel="stylesheet" href="css/themes/TVRS.min.css" />
   	<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/jquery.mobile-1.4.3.min.js"></script>
@@ -77,37 +77,39 @@
 
 			<fieldset data-role="controlgroup">
 		        <h3 class="ui-bar ui-bar-a ui-corner-all">Service Provided:</h3>
-			        <input name="service" id="service1" type="radio" value="1">
+			        <input name="service" id="service1" type="radio" value="1" onclick="checkOther()">
 			        <label for="service1">Risk Reduction and/or Resiliency Strength Assessment and Counseling</label>
-			        <input name="service" id="service2" type="radio" value="2">
+			        <input name="service" id="service2" type="radio" value="2" onclick="checkOther()">
 			        <label for="service2">Psychosocial Counseling</label>
-			        <input name="service" id="service3" type="radio" value="3">
+			        <input name="service" id="service3" type="radio" value="3" onclick="checkOther()">
 			        <label for="service3">Substance Abuse Counseling</label>
-					<input name="service" id="service4" type="radio" value="4">
+					<input name="service" id="service4" type="radio" value="4" onclick="checkOther()">
 					<label for="service4">Mentoring (peer or other)</label>
-					<input name="service" id="service5" type="radio" value="5">
+					<input name="service" id="service5" type="radio" value="5" onclick="checkOther()">
 					<label for="service5">Case Management Services</label>
-					<input name="service" id="service6" type="radio" value="6">
+					<input name="service" id="service6" type="radio" value="6" onclick="checkOther()">
 					<label for="service6">Medical Services</label>
-					<input name="service" id="service7" type="radio" value="7">
+					<input name="service" id="service7" type="radio" value="7" onclick="checkOther()">
 					<label for="service7">Career Counseling / Job Training</label>
-					<input name="service" id="service8" type="radio" value="8">
+					<input name="service" id="service8" type="radio" value="8" onclick="checkOther()">
 			        <label for="service8">Life Skills</label>
-					<input name="service" id="service9" type="radio" value="9">
+					<input name="service" id="service9" type="radio" value="9" onclick="checkOther()">
 					<label for="service9">Parenting Skills</label>
-					<input name="service" id="service10" type="radio" value="10">
+					<input name="service" id="service10" type="radio" value="10" onclick="checkOther()">
 					<label for="service10">Crisis Counseling</label>
-					<input name="service" id="service11" type="radio" value="11">
+					<input name="service" id="service11" type="radio" value="11" onclick="checkOther()">
 					<label for="service11">Legal Assistance</label>
-					<input name="service" id="service12" type="radio" value="12">
+					<input name="service" id="service12" type="radio" value="12" onclick="checkOther()">
 					<label for="service12">Mental Health Counseling</label>
-					<input name="service" id="service13" type="radio" value="13">
+					<input name="service" id="service13" type="radio" value="13" onclick="checkOther()">
 					<label for="service13">English Language Skills Assistance</label>
-					<input name="service" id="service14" type="radio" value="14">
+					<input name="service" id="service14" type="radio" value="14" onclick="checkOther()">
 					<label for="service14">Family Counseling</label>
-					<input name="service" id="service15" type="radio" value="15">
+					<input name="service" id="service15" type="radio" value="15" onclick="checkOther()">
 					<label for="service15">Other Services</label>
-					<input name = "other" id="others" type ="text" value="" placeholder="If you selected 'Other Services', please describe the service provided"/>
+					<div id="containOther">
+						<input name = "other" id="others" type ="text" value="" placeholder="Please describe the service"/>
+					</div>
 		    </fieldset>
 
 		    <fieldset data-role="controlgroup">
@@ -234,23 +236,23 @@
 
 <div data-role="dialog" data-transition="pop" id="dosagerecordpg">
 	<div data-role="header">
-		<h1>Error</h1>
+		<h1>Dosage Entries</h1>
 	</div>
 	<div data-role="content">
-		<ul data-role="listview" data-inset="true" id="showPost">
+		<ul data-role="listview" data-inset="true" id="showPost" class="fixBack">
 		</ul>
 	</div>
-
 </div>
 
 <!-- Dosage Entry Database -->
 
 <div data-role="dialog" data-transition="pop" id="alcoholpg">
 	<div data-role="header">
-		<h1>Dosage Entries</h1>
+		<h1>Error</h1>
 	</div>
-	<p>There is currently no Alcohol Form</p>
-
+	<div data-role="content">
+		<div id="noAlcohol">There is currently no Alcohol Form</div>
+	</div>
 </div>
 
 

@@ -1,0 +1,36 @@
+.valueStored{
+	font-family: Helvetica;
+	font-weight: 200;
+}
+#noAlcohol{
+	text-align: center;
+	font-family: Helvetica;
+	font-weight: 500;
+}
+::-webkit-input-placeholder {
+   color: white;
+   font-family: Helvetica;
+   font-weight: 200;
+   text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: white;
+   font-family: Helvetica;
+   font-weight: 200; 
+   text-align: center;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: white;
+   font-family: Helvetica;
+   font-weight: 200; 
+   text-align: center;
+}
+
+:-ms-input-placeholder {  
+   color: white;
+   font-family: Helvetica;
+   font-weight: 200;
+   text-align: center;
+}
