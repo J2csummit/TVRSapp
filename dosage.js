@@ -9,6 +9,7 @@ var _hrs;
 var _min;
 var filled;
 var other;
+var htmlstring;
 
 // This function will run upon the page being fully loaded
 function checkConnection() {
@@ -26,7 +27,7 @@ function checkConnection() {
 // This function will run when the submit button is clicked
 function submission() {
     if(doesConnectionExist()==true){
-        alert("begin submission?");
+        //alert("begin submission?");
 
         // Temporarily using offline storage functions regardless if online or offline for development purposes
         TVRSdata.transaction(insertDB, errorCB)
@@ -147,7 +148,7 @@ function getHowValue(groupName) {
 // This fucntion creates inital database
 function makeDatabase(){
     TVRSdata = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
-    alert("created database?");
+    //alert("created database?");
     TVRSdata.transaction(createDB, errorCB);
 }
 
@@ -175,7 +176,7 @@ function insertDB(db){
     _hrs= document.getElementById("hourss").value;
     _min= document.getElementById("minutess").value;
 
-    alert(_urName + '' + _cltName + '' + _serv + '' + _othr + '' + _who + '' + _how + '' + _hrs + '' + _min);
+    //alert(_urName + '' + _cltName + '' + _serv + '' + _othr + '' + _who + '' + _how + '' + _hrs + '' + _min);
 
     // Checks if everything is filled out correctly
     if (other==true && _othr==""){
@@ -192,11 +193,37 @@ function insertDB(db){
 
     //  This will show the data stored in the database
     db.executeSql('SELECT * FROM DosageData', [], function (db, results) {
-        var len = results.rows.length, i;
+        var len = results.rows.length;
         for (i = 0; i < len; i++) {
-            var data = JSON.stringify(results.rows.item(i))
-            alert(data);
+            htmlstring += '<li>' + 'Your Name: ' + results.rows.item(i).urName + '<br/>' + 'Client Name: ' + results.rows.item(i).cltName + '<br/>' + 'Service Provided: ' + results.rows.item(i).serv + '<br/>' + 'Other Service Description: ' + results.rows.item(i).othr + '<br/>' + 'Who Received the Service: ' + results.rows.item(i).who + '<br/>' + 'How Service was Provided: ' + results.rows.item(i).how + '<br/>' + 'Time: ' + results.rows.item(i).hrs + results.rows.item(i).min + '<br/>' + '</li>';
         }
+        document.getElementById("showPost").innerHTML = htmlstring;
+    });
+
+    alert("Entry Saved to Device.");
+
+//    var len = results.rows.length, i;
+//        for (i = 0; i < len; i++) {
+//            var data = JSON.stringify(results.rows.item(i))
+//            alert(data);
+//        }
+
+}
+
+function showDosage(){
+    TVRSdata.transaction(showDosageDB, errorCB)
+}
+
+function showDosageDB(db){
+
+    //  This will show the data stored in the database
+    db.executeSql('SELECT * FROM DosageData', [], function (db, results) {
+        var htmlstring = '';
+        var len = results.rows.length;
+        for (i = 0; i < len; i++) {
+            htmlstring += '<li data-role="list-divider" role="heading" class="ui-li-divider ui-bar-a ui-first-child">New Post</li>' + '<li><a href="#" class="ui-btn">' + 'Your Name: ' + results.rows.item(i).urName + '</a></li>' + '<li><a href="#" class="ui-btn">' + 'Client Name: ' + results.rows.item(i).cltName + '</a></li>' + '<li><a href="#" class="ui-btn">' + 'Service Provided: ' + results.rows.item(i).serv + '</a></li>' + '<li><a href="#" class="ui-btn">' + 'Other Service Description: ' + results.rows.item(i).othr + '</a></li>' + '<li><a href="#" class="ui-btn">' + 'Who Received the Service: ' + results.rows.item(i).who + '</a></li>' + '<li><a href="#" class="ui-btn">' + 'How Service was Provided: ' + results.rows.item(i).how + '</a></li>' + '<li><a href="#" class="ui-btn">' + 'Time: ' + results.rows.item(i).hrs + results.rows.item(i).min + '</a></li>';
+        }
+        document.getElementById("showPost").innerHTML = htmlstring;
     });
 }
 
@@ -218,9 +245,10 @@ function upload(db){
             });*/
         }
         db.executeSql('DROP TABLE IF EXISTS DosageData');
-        alert("Database will be dropped");
+        //alert("Database will be dropped");
         db.executeSql('CREATE TABLE IF NOT EXISTS DosageData (urName, cltName, serv, othr, who, how, hrs, min)');
-        alert("New database created")
+        //alert("New database created")
+        htmlstring = '';
     });
 }
 
