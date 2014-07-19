@@ -1,4 +1,5 @@
 var TVRSdata;
+var _date;
 var _urName;
 var _cltName;
 var _serv;
@@ -142,6 +143,10 @@ function getHowValue(groupName) {
     }
 }
 
+// Function that checks if "Other Service" is
+// selected from the "Service Provided" section.
+// If if is, text field where the user is asked to
+// describe the service appears
 function checkOther(){
     var radios = document.getElementsByName("service");
     window.isOther = null;
@@ -175,7 +180,7 @@ function makeDatabase(){
 // This function creates a table in the database 
 // (if the user first runs app without internet connection)
 function createDB(db){
-    db.executeSql('CREATE TABLE IF NOT EXISTS DosageData (urName, cltName, serv, othr, who, how, hrs, min)');
+    db.executeSql('CREATE TABLE IF NOT EXISTS DosageData (date, urName, cltName, serv, othr, who, how, hrs, min)');
 }
 
 // If there is an error with the SQL statments
@@ -187,6 +192,8 @@ function errorCB(err){
 // This function inserts the user data from the form into the table in the database
 // then shows the collective contents of the database
 function insertDB(db){
+    var instantDate = new Date();
+    _date = instantDate.toDateString() + " " + instantDate.getHours() + ":" + instantDate.getMinutes() + ":" + instantDate.getSeconds();
     _urName= document.getElementById("providerNames").value;
     _cltName= document.getElementById("clientNames").value;
     _serv= getServiceValue("service");
@@ -209,19 +216,11 @@ function insertDB(db){
     }
 
     // If form is filled out, results are submitted into database
-    db.executeSql('INSERT INTO DosageData (urName, cltName, serv, othr, who, how, hrs, min) VALUES (?,?,?,?,?,?,?,?)', [_urName, _cltName, _serv, _othr, _who, _how, _hrs, _min]);
-
-    //  This will show the data stored in the database
-    db.executeSql('SELECT * FROM DosageData', [], function (db, results) {
-        var len = results.rows.length;
-        for (i = 0; i < len; i++) {
-            htmlstring += '<li>' + 'Your Name: ' + results.rows.item(i).urName + '<br/>' + 'Client Name: ' + results.rows.item(i).cltName + '<br/>' + 'Service Provided: ' + results.rows.item(i).serv + '<br/>' + 'Other Service Description: ' + results.rows.item(i).othr + '<br/>' + 'Who Received the Service: ' + results.rows.item(i).who + '<br/>' + 'How Service was Provided: ' + results.rows.item(i).how + '<br/>' + 'Time: ' + results.rows.item(i).hrs + results.rows.item(i).min + '<br/>' + '</li>';
-        }
-        document.getElementById("showPost").innerHTML = htmlstring;
-    });
+    db.executeSql('INSERT INTO DosageData (date, urName, cltName, serv, othr, who, how, hrs, min) VALUES (?,?,?,?,?,?,?,?,?)', [_date, _urName, _cltName, _serv, _othr, _who, _how, _hrs, _min]);
 
     alert("Entry Saved to Device.");
-
+    var form = document.getElementById("dosageform");
+    form.reset();
 }
 
 function showDosage(){
@@ -234,8 +233,8 @@ function showDosageDB(db){
     db.executeSql('SELECT * FROM DosageData', [], function (db, results) {
         var htmlstring = '';
         var len = results.rows.length;
-        for (i = 0; i < len; i++) {
-            htmlstring += '<li data-role="list-divider" role="heading" class="ui-li-divider ui-bar-c ui-first-child">New Post</li>' + '<li class="ui-li-divider ui-bar-a">' + 'Your Name: <div class="valueStored">' + results.rows.item(i).urName + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'Client Name: <div class="valueStored">' + results.rows.item(i).cltName + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'Service Provided: <div class="valueStored">' + results.rows.item(i).serv + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + '"Other Service" Description: <div class="valueStored">' + results.rows.item(i).othr + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'Who Received the Service: <div class="valueStored">' + results.rows.item(i).who + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'How Service was Provided: <div class="valueStored">' + results.rows.item(i).how + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'Time: <div class="valueStored">' + results.rows.item(i).hrs + results.rows.item(i).min + '</div></li>';
+        for (i = len - 1; i >= 0; i--) {
+            htmlstring += '<li data-role="list-divider" role="heading" class="ui-li-divider ui-bar-c ui-first-child">' + results.rows.item(i).date + '</li>' + '<li class="ui-li-divider ui-bar-a">' + 'Your Name: <div class="valueStored">' + results.rows.item(i).urName + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'Client Name: <div class="valueStored">' + results.rows.item(i).cltName + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'Service Provided: <div class="valueStored">' + results.rows.item(i).serv + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + '"Other Service" Description: <div class="valueStored">' + results.rows.item(i).othr + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'Who Received the Service: <div class="valueStored">' + results.rows.item(i).who + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'How Service was Provided: <div class="valueStored">' + results.rows.item(i).how + '</div></li>' + '<li class="ui-li-divider ui-bar-a">' + 'Time: <div class="valueStored">' + results.rows.item(i).hrs + results.rows.item(i).min + '</div></li>';
         }
         document.getElementById("showPost").innerHTML = htmlstring;
     });
@@ -260,7 +259,7 @@ function upload(db){
         }
         db.executeSql('DROP TABLE IF EXISTS DosageData');
         //alert("Database will be dropped");
-        db.executeSql('CREATE TABLE IF NOT EXISTS DosageData (urName, cltName, serv, othr, who, how, hrs, min)');
+        db.executeSql('CREATE TABLE IF NOT EXISTS DosageData (date, urName, cltName, serv, othr, who, how, hrs, min)');
         //alert("New database created")
         htmlstring = '';
     });
